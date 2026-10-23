@@ -5,7 +5,7 @@
 	import { onMount } from 'svelte';
 
 	let requests: ClientRequest[] = $state([]);
-	let client: Client | null = $state(null);
+	let client = $state<Client | null>(null);
 	let loading = $state(true);
 
 	onMount(async () => {

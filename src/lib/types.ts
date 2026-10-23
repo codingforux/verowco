@@ -2,7 +2,7 @@ export type PriorityLevel = 'standard' | 'priority';
 export type RequestStatus = 'received' | 'queued' | 'in_progress' | 'review' | 'complete';
 export type ServiceTier = 'retainer' | 'standard' | 'priority';
 
-export interface ClientRequest {
+export type ClientRequest = {
 	id: string;
 	client_id: string;
 	title: string;
@@ -16,9 +16,9 @@ export interface ClientRequest {
 	completed_at: string | null;
 	production_hours: number | null;
 	notes: string | null;
-}
+};
 
-export interface Client {
+export type Client = {
 	id: string;
 	name: string;
 	email: string;
@@ -27,7 +27,7 @@ export interface Client {
 	retainer_hours: number | null;
 	retainer_hours_used: number;
 	created_at: string;
-}
+};
 
 export interface Database {
 	public: {
@@ -36,19 +36,22 @@ export interface Database {
 				Row: Client;
 				Insert: Omit<Client, 'id' | 'created_at' | 'retainer_hours_used'>;
 				Update: Partial<Omit<Client, 'id'>>;
+				Relationships: [];
 			};
 			requests: {
 				Row: ClientRequest;
 				Insert: Omit<ClientRequest, 'id' | 'submitted_at' | 'scheduled_start' | 'estimated_delivery' | 'completed_at' | 'production_hours' | 'notes'>;
 				Update: Partial<Omit<ClientRequest, 'id'>>;
+				Relationships: [];
 			};
 		};
-		Views: Record<string, never>;
-		Functions: Record<string, never>;
+		Views: { [_ in never]: never };
+		Functions: { [_ in never]: never };
 		Enums: {
 			priority_level: PriorityLevel;
 			request_status: RequestStatus;
 			service_tier: ServiceTier;
 		};
+		CompositeTypes: { [_ in never]: never };
 	};
 }
